@@ -7,7 +7,8 @@ import jakarta.persistence.Converter;
 import java.util.stream.Stream;
 
 @Converter(autoApply = true)
-public class SexConverter implements AttributeConverter<Sex, Integer> {
+public class
+SexConverter implements AttributeConverter<Sex, Integer> {
     @Override
     public Integer convertToDatabaseColumn(Sex sex) {
         if (sex == null) {

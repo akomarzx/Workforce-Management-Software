@@ -13,7 +13,10 @@ import org.hibernate.type.SqlTypes;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "employee")
+@Table(name = "employee", indexes = {
+        @Index(name = "employee_pk_index", columnList = "employee_pk"),
+        @Index(name = "company_pk_index", columnList = "company_pk")
+})
 @Setter
 @Getter
 @ToString(callSuper = true)
@@ -28,7 +31,7 @@ public class Employee extends BaseEntity {
     @SequenceGenerator(name = "employee_gen", sequenceName = "employee_seq", initialValue = 3000)
     @Column(name = "employee_pk", nullable = false)
     @JdbcTypeCode(SqlTypes.BIGINT)
-    private Long employee_pk;
+    private Long employeePk;
 
     @NotNull
     @Column(name = "employee_id", unique = true)
@@ -55,4 +58,8 @@ public class Employee extends BaseEntity {
     @NotNull
     @Column(columnDefinition = "integer CHECK (sex IN (1 ,2, 9, 0))")
     private Sex sex;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_pk", nullable = false)
+    private Company company;
 }

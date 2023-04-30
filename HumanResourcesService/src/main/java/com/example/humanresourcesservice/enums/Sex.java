@@ -1,6 +1,8 @@
 package com.example.humanresourcesservice.enums;
 
+
 import lombok.Getter;
+
 @Getter
 public enum Sex {
     MALE(1),
