@@ -22,8 +22,6 @@ public abstract class BaseEntity {
     @Column(name = "updated_date")
     private LocalDate updatedDate;
 
-
-
     @NotNull
     @Column(name = "created_by", updatable = false)
     private String createdBy;

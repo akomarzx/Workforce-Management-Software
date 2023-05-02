@@ -11,13 +11,14 @@ import org.hibernate.type.SqlTypes;
 import java.util.List;
 
 @Entity
-@Table(name = "company", indexes = @Index(columnList = "company_pk"))
+@Table(name = "company")
 @Getter
 @Setter
+@ToString
 public class Company extends BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_gen")
-    @SequenceGenerator(name = "company_gen", sequenceName = "company_seq", initialValue = 100)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "company_gen")
+    @SequenceGenerator(name = "company_gen", sequenceName = "company_pk_seq", initialValue = 100)
     @Column(name = "company_pk", nullable = false)
     @JdbcTypeCode(SqlTypes.BIGINT)
     private Long companyPk;
@@ -26,6 +27,16 @@ public class Company extends BaseEntity{
     @NotNull
     private String companyName;
 
-    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
-    private List<Employee> companyEmployees;
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Department> companyDepartment;
+
+    public void addDepartment(Department department) {
+        department.setCompany(this);
+        this.companyDepartment.add(department);
+    }
+
+    public void removeDepartment(Department department) {
+        department.setCompany(null);
+        this.companyDepartment.remove(department);
+    }
 }

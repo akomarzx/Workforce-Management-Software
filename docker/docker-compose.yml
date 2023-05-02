@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  wfm_mysql_db:
+    image: mysql:8.0.32   
+    build:
+      context: .
+    restart: always
+    environment:
+      MYSQL_DATABASE: wfm_db_dev
+      MYSQL_ALLOW_EMPTY_PASSWORD: no
+      MYSQL_RANDOM_ROOT_PASSWORD: yes
+    ports: 
+      - 3306:3306
+      - 33060:33060    
+volumes:
+  wfM_db_volume:

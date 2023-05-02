@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  workforcemanagementsoftware:
+    image: workforcemanagementsoftware
+    build:
+      context: .
+      dockerfile: ./Dockerfile

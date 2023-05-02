@@ -14,21 +14,20 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "employee", indexes = {
-        @Index(name = "employee_pk_index", columnList = "employee_pk"),
-        @Index(name = "company_pk_index", columnList = "company_pk")
+        @Index(name = "department_pk_index", columnList = "department_pk")
 })
 @Setter
 @Getter
-@ToString(callSuper = true)
 public class Employee extends BaseEntity {
     //TODO This behavior will be moved over to the business logic layer for Better SOC.
     @PrePersist
     protected void onCreate() {
         setEmployeeId(RandomStringUtils.randomAlphanumeric(12));
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_gen")
-    @SequenceGenerator(name = "employee_gen", sequenceName = "employee_seq", initialValue = 3000)
+    @SequenceGenerator(name = "employee_gen", sequenceName = "employee_pk_seq", initialValue = 1000)
     @Column(name = "employee_pk", nullable = false)
     @JdbcTypeCode(SqlTypes.BIGINT)
     private Long employeePk;
@@ -60,6 +59,6 @@ public class Employee extends BaseEntity {
     private Sex sex;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_pk", nullable = false)
-    private Company company;
+    @JoinColumn(name = "department_pk", nullable = false)
+    private Department department;
 }
