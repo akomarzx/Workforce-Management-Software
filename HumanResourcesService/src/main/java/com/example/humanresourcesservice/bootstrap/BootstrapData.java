@@ -48,13 +48,11 @@ public class BootstrapData implements CommandLineRunner {
 //        d1.setDepartmentName("Management Company 1");
 //        d1.setCompany(c1);
 //        d1.setCreatedBy("Ronald Test");
-//        this.departmentRepository.save(d1);
 //
 //        Department d2 = new Department();
 //        d2.setDepartmentName("Management");
 //        d2.setCompany(c2);
 //        d2.setCreatedBy("Ronald Test");
-//        this.departmentRepository.save(d2);
 //
 //        Employee e1 = new Employee();
 //        e1.setCreatedBy("RonaldTest");
@@ -73,23 +71,20 @@ public class BootstrapData implements CommandLineRunner {
 //        e2.setBirthDate(LocalDate.of(1997, 6, 8));
 //        e2.setHiringDate(LocalDate.of(2023, 3, 22));
 //        e2.setSex(Sex.FEMALE);
-//        e2.setDepartment(d1);
-//        this.employeeRepository.save(e2);
 //
-//        Employee e3 = new Employee();
-//        e2.setCreatedBy("RonaldTest");
-//        e2.setFirstName("Jewel");
-//        e2.setLastName("Ombao");
-//        e2.setBirthDate(LocalDate.of(2014, 3, 2));
-//        e2.setHiringDate(LocalDate.of(2023, 3, 22));
-//        e2.setSex(Sex.FEMALE);
-//        e2.setDepartment(d1);
-//        this.employeeRepository.save(e2);
+        Employee e2 = new Employee();
+        e2.setCreatedBy("RonaldTest");
+        e2.setFirstName("Jewel Test");
+        e2.setLastName("Ombao");
+        e2.setBirthDate(LocalDate.of(2014, 3, 2));
+        e2.setHiringDate(LocalDate.of(2023, 3, 22));
+        e2.setSex(Sex.FEMALE);
 
+        Optional<Department> department = this.departmentRepository.findById(201L);
+        department.ifPresent(department1 -> department1.addEmployee(e2));
 
-        Optional<Department> dept1 = this.departmentRepository.findById(100L);
-        dept1.get().getEmployeeList().remove(0);
-        this.departmentRepository.save(dept1.get());
-
+        Optional<Employee> employee = this.employeeRepository.findById(1102L);
+        employee.ifPresent(employee1 -> department.get().removeEmployee(employee1));
     }
+
 }
